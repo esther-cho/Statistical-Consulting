@@ -1,8 +1,8 @@
 /****************************************************************/
-/**********µ¥ÀÌÅÍ ºÒ·¯¿À±â º¯¼ö »ı¼º, °áÃøÄ¡ Á¦°Å µî »çÀüÀÛ¾÷***********/
+/**********ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° ë³€ìˆ˜ ìƒì„±, ê²°ì¸¡ì¹˜ ì œê±° ë“± ì‚¬ì „ì‘ì—…***********/
 /****************************************************************/
-* ¶óÀÌºê·¯¸® ÁöÁ¤;
-libname aa "C:\Users\Ahn\Dropbox\Åë°è»ó´ã";
+* ë¼ì´ë¸ŒëŸ¬ë¦¬ ì§€ì •;
+libname aa "C:\Users\Cho\Dropbox\í†µê³„ìƒë‹´";
 /**/
 /*data aa.temp;*/
 /*set aa.data;*/
@@ -12,12 +12,12 @@ libname aa "C:\Users\Ahn\Dropbox\Åë°è»ó´ã";
 
 
 proc import out=aa.rawdata_csv
-datafile="C:\Users\Ahn\Dropbox\Åë°è»ó´ã\HN14_ALL.csv"
+datafile="C:\Users\Cho\Dropbox\í†µê³„ìƒë‹´\HN14_ALL.csv"
 dbms=csv replace;
 getnames=yes;
 run;
 
-* raw data º¸Á¸À» À§ÇÑ µ¥ÀÌÅÍ º¹»ç;
+* raw data ë³´ì¡´ì„ ìœ„í•œ ë°ì´í„° ë³µì‚¬;
 data aa.data;
 set aa.rawdata_csv;
 run;
@@ -27,25 +27,25 @@ set aa.data;
 if HE_BMI ne .;
 run;
 
-* Ç¥1. BMIÁö¼ö¸¦ ÀÌ¿ëÇÑ ±×·ì º¯¼ö »ı¼º ¹× °áÃøÄ¡ Á¦°Å;
+* í‘œ1. BMIì§€ìˆ˜ë¥¼ ì´ìš©í•œ ê·¸ë£¹ ë³€ìˆ˜ ìƒì„± ë° ê²°ì¸¡ì¹˜ ì œê±°;
 data aa.data;
 set aa.data;
-if HE_BMI < 18.5 then BMI=1; *ÀúÃ¼Áß : BMI=1;
-else if HE_BMI <24.9 then BMI=2; *Á¤»óÃ¼Áß : BMI=2;
-else if HE_BMI >25.0 then BMI=3; *ºñ¸¸Ã¼Áß : BMI=3;
+if HE_BMI < 18.5 then BMI=1; *ì €ì²´ì¤‘ : BMI=1;
+else if HE_BMI <24.9 then BMI=2; *ì •ìƒì²´ì¤‘ : BMI=2;
+else if HE_BMI >25.0 then BMI=3; *ë¹„ë§Œì²´ì¤‘ : BMI=3;
 if BMI NE .;
 run;
 
-* Ç¥2. ÁÖ°üÀûÃ¼ÇüÀÎ½Ä º° ±×·ì º¯¼ö »ı¼º ¹× °áÃøÄ¡ Á¦°Å;
+* í‘œ2. ì£¼ê´€ì ì²´í˜•ì¸ì‹ ë³„ ê·¸ë£¹ ë³€ìˆ˜ ìƒì„± ë° ê²°ì¸¡ì¹˜ ì œê±°;
 data aa.data;
 set aa.data;
-if BO1 < 3  then BMI_p=1; *ÀúÃ¼ÁßÀ¸·Î ÀÎ½Ä : BMI_p=1;
-else if BO1 < 4 then BMI_p=2; *Á¤»óÃ¼ÁßÀ¸·Î ÀÎ½Ä : BMI_p=2;
-else if BO1> 3 then BMI_p=3; *ºñ¸¸Ã¼ÁßÀ¸·Î ÀÎ½Ä : BMI_p=3;
+if BO1 < 3  then BMI_p=1; *ì €ì²´ì¤‘ìœ¼ë¡œ ì¸ì‹ : BMI_p=1;
+else if BO1 < 4 then BMI_p=2; *ì •ìƒì²´ì¤‘ìœ¼ë¡œ ì¸ì‹ : BMI_p=2;
+else if BO1> 3 then BMI_p=3; *ë¹„ë§Œì²´ì¤‘ìœ¼ë¡œ ì¸ì‹ : BMI_p=3;
 if BMI_p NE .;
 run;
 
-* Ç¥3. ½ÇÁ¦ BMI¿Í ÁÖ°üÀûÃ¼ÇüÀÎ½Ä º° ±×·ìÈ­(group=1,2,3,4,5,6,7,8,9);
+* í‘œ3. ì‹¤ì œ BMIì™€ ì£¼ê´€ì ì²´í˜•ì¸ì‹ ë³„ ê·¸ë£¹í™”(group=1,2,3,4,5,6,7,8,9);
 data aa.data;
 set aa.data;
 if BMI=1 and BMI_p=1 then group=1;
@@ -59,7 +59,7 @@ else if BMI=3 and BMI_p=1 then group=8;
 else if BMI=3 and BMI_p=2 then group=9;
 run;
 
- * age ±×·ì º° º¯¼ö »ı¼º(agegroup=1,2,3,4,5,6,7);
+ * age ê·¸ë£¹ ë³„ ë³€ìˆ˜ ìƒì„±(agegroup=1,2,3,4,5,6,7);
 data aa.data;
 set aa.data;
 if age<20 then agegroup=1;
@@ -71,7 +71,7 @@ else if age<70 then agegroup=6;
 else if age>=70 then agegroup=7;
 run;
 
- * Ç¥ 4, 5, 7¿¡¼­ ºñÇØ´ç(8)°ú ¹«ÀÀ´ä(9)À» ÇÕÃÄ¾ß ÇÏ´Â °Íµé;
+ * í‘œ 4, 5, 7ì—ì„œ ë¹„í•´ë‹¹(8)ê³¼ ë¬´ì‘ë‹µ(9)ì„ í•©ì³ì•¼ í•˜ëŠ” ê²ƒë“¤;
 data aa.data;
 set aa.data;
 if ec1_1=8 then ec1_1=9;
@@ -100,469 +100,469 @@ run;
 
 
 
- * Ç¥3 ;
+ * í‘œ3 ;
 proc freq data=aa.data;
 tables group * sex;
 run;
 
- * Ç¥4, BMIÁö¼ö¿¡ µû¸¥ Ã¼Çü ºĞ·ù;
+ * í‘œ4, BMIì§€ìˆ˜ì— ë”°ë¥¸ ì²´í˜• ë¶„ë¥˜;
 proc freq data=aa.data;
 tables BMI * sex;
 run;
 
- * Ç¥4, ÁÖ°üÀû Ã¼Çü ÀÎ½Ä;
+ * í‘œ4, ì£¼ê´€ì  ì²´í˜• ì¸ì‹;
 proc freq data=aa.data;
 tables BMI_p * sex;
 run;
 
- * Ç¥4, ¸¸³ªÀÌ;
+ * í‘œ4, ë§Œë‚˜ì´;
 proc freq data=aa.data;
 tables agegroup * sex;
 run;
 
- * Ç¥4, ±³À°¼öÁØ;
+ * í‘œ4, êµìœ¡ìˆ˜ì¤€;
 proc freq data=aa.data;
 tables edu * sex;
 run;
 
- * Ç¥4, Áö¿ª;
+ * í‘œ4, ì§€ì—­;
 proc freq data=aa.data;
 tables region * sex;
 run;
 
- * Ç¥4, °áÈ¥¿©ºÎ;
+ * í‘œ4, ê²°í˜¼ì—¬ë¶€;
 proc freq data=aa.data;
 tables marri_1 * sex;
 run;
 
- * Ç¥4, °³ÀÎ ¼Òµæ »çºĞÀ§¼ö;
+ * í‘œ4, ê°œì¸ ì†Œë“ ì‚¬ë¶„ìœ„ìˆ˜;
 proc freq data=aa.data;
 tables incm * sex;
 run;
 
- * Ç¥4, °æÁ¦È°µ¿ »óÅÂ;
+ * í‘œ4, ê²½ì œí™œë™ ìƒíƒœ;
 proc freq data=aa.data;
 tables ec1_1*sex;
 run;
 
- * Ç¥4, Á¤±ÔÁ÷ ¿©ºÎ;
+ * í‘œ4, ì •ê·œì§ ì—¬ë¶€;
 proc freq data=aa.data;
 tables ec_wht_0*sex;
 run;
 
- * Ç¥4, Á÷¾÷ÀçºĞ·ù ¹× ½Ç¾÷/ºñ°æÁ¦È°µ¿ »óÅÂ ÄÚµå;
+ * í‘œ4, ì§ì—…ì¬ë¶„ë¥˜ ë° ì‹¤ì—…/ë¹„ê²½ì œí™œë™ ìƒíƒœ ì½”ë“œ;
 proc freq data=aa.data;
 tables occp * sex;
 run;
 
 %macro chisq_test(group_a,group_b);
- * Ç¥5, ÁÖ°üÀû°Ç°­»óÅÂ, ³²ÀÚ;
+ * í‘œ5, ì£¼ê´€ì ê±´ê°•ìƒíƒœ, ë‚¨ì;
 proc freq data=aa.data;
 table D_1_1 * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, ÁÖ°üÀû°Ç°­»óÅÂ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ì£¼ê´€ì ê±´ê°•ìƒíƒœ,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÁÖ°üÀû°Ç°­»óÅÂ, ¿©ÀÚ;
+ * í‘œ5, ì£¼ê´€ì ê±´ê°•ìƒíƒœ, ì—¬ì;
 proc freq data=aa.data;
 table D_1_1 * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, ÁÖ°üÀû°Ç°­»óÅÂ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ì£¼ê´€ì ê±´ê°•ìƒíƒœ,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ¿îµ¿´É·Â, ³²ÀÚ;
+ * í‘œ5, ìš´ë™ëŠ¥ë ¥, ë‚¨ì;
 proc freq data=aa.data;
 table lq_1eql * group/ chisq;   ******************;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, ¿îµ¿´É·Â,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ìš´ë™ëŠ¥ë ¥,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ¿îµ¿´É·Â, ¿©ÀÚ;
+ * í‘œ5, ìš´ë™ëŠ¥ë ¥, ì—¬ì;
 proc freq data=aa.data;
 table lq_1eql * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, ¿îµ¿´É·Â,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ìš´ë™ëŠ¥ë ¥,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÀÚ±â°ü¸®, ³²ÀÚ;
+ * í‘œ5, ìê¸°ê´€ë¦¬, ë‚¨ì;
 proc freq data=aa.data;
 table lq_2eql * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, ÀÚ±â°ü¸®, ³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ìê¸°ê´€ë¦¬, ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÀÚ±â°ü¸®, ¿©ÀÚ;
+ * í‘œ5, ìê¸°ê´€ë¦¬, ì—¬ì;
 proc freq data=aa.data;
 table lq_2eql * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, ÀÚ±â°ü¸®, ¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ìê¸°ê´€ë¦¬, ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÀÏ»óÈ°µ¿, ³²ÀÚ;
+ * í‘œ5, ì¼ìƒí™œë™, ë‚¨ì;
 proc freq data=aa.data;
 table lq_3eql * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, ÀÏ»óÈ°µ¿,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ì¼ìƒí™œë™,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÀÏ»óÈ°µ¿, ¿©ÀÚ;
+ * í‘œ5, ì¼ìƒí™œë™, ì—¬ì;
 proc freq data=aa.data;
 table lq_3eql * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, ÀÏ»óÈ°µ¿,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ì¼ìƒí™œë™,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÅëÁõ/ºÒÆí, ³²ÀÚ;
+ * í‘œ5, í†µì¦/ë¶ˆí¸, ë‚¨ì;
 proc freq data=aa.data;
 table lq_4eql * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, ÅëÁõ/ºÒÆí,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, í†µì¦/ë¶ˆí¸,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ÅëÁõ/ºÒÆí, ¿©ÀÚ;
+ * í‘œ5, í†µì¦/ë¶ˆí¸, ì—¬ì;
 proc freq data=aa.data;
 table lq_4eql * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, ÅëÁõ/ºÒÆí,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, í†µì¦/ë¶ˆí¸,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ºÒ¾È/¿ì¿ï, ³²ÀÚ;
+ * í‘œ5, ë¶ˆì•ˆ/ìš°ìš¸, ë‚¨ì;
 proc freq data=aa.data;
 table lq_5eql * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, ºÒ¾È/¿ì¿ï,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ë¶ˆì•ˆ/ìš°ìš¸,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, ºÒ¾È/¿ì¿ï, ¿©ÀÚ;
+ * í‘œ5, ë¶ˆì•ˆ/ìš°ìš¸, ì—¬ì;
 proc freq data=aa.data;
 table lq_5eql * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, ºÒ¾È/¿ì¿ï,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, ë¶ˆì•ˆ/ìš°ìš¸,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, 1³â°£ Ã¼Áß Á¶Àı ¿©ºÎ, ³²ÀÚ;
+ * í‘œ5, 1ë…„ê°„ ì²´ì¤‘ ì¡°ì ˆ ì—¬ë¶€, ë‚¨ì;
 proc freq data=aa.data;
 table Bo2_1 * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, 1³â°£ Ã¼Áß Á¶Àı ¿©ºÎ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, 1ë…„ê°„ ì²´ì¤‘ ì¡°ì ˆ ì—¬ë¶€,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, 1³â°£ Ã¼Áß Á¶Àı ¿©ºÎ, ¿©ÀÚ;
+ * í‘œ5, 1ë…„ê°„ ì²´ì¤‘ ì¡°ì ˆ ì—¬ë¶€, ì—¬ì;
 proc freq data=aa.data;
 table Bo2_1 * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, 1³â°£ Ã¼Áß Á¶Àı ¿©ºÎ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, 1ë…„ê°„ ì²´ì¤‘ ì¡°ì ˆ ì—¬ë¶€,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, 1³â°£ À½ÁÖ ºóµµ, ³²ÀÚ;
+ * í‘œ5, 1ë…„ê°„ ìŒì£¼ ë¹ˆë„, ë‚¨ì;
 proc freq data=aa.data;
 table BD1_11 * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, 1³â°£ À½ÁÖ ºóµµ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, 1ë…„ê°„ ìŒì£¼ ë¹ˆë„,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, 1³â°£ À½ÁÖ ºóµµ, ¿©ÀÚ;
+ * í‘œ5, 1ë…„ê°„ ìŒì£¼ ë¹ˆë„, ì—¬ì;
 proc freq data=aa.data;
 table BD1_11 * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, 1³â°£ À½ÁÖ ºóµµ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, 1ë…„ê°„ ìŒì£¼ ë¹ˆë„,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, Æò»ıÈí¿¬ ¿©ºÎ, ³²ÀÚ;
+ * í‘œ5, í‰ìƒí¡ì—° ì—¬ë¶€, ë‚¨ì;
 proc freq data=aa.data;
 table BS3_1 * group/ chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥5, Æò»ıÈí¿¬ ¿©ºÎ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, í‰ìƒí¡ì—° ì—¬ë¶€,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥5, Æò»ıÈí¿¬ ¿©ºÎ, ¿©ÀÚ;
+ * í‘œ5, í‰ìƒí¡ì—° ì—¬ë¶€, ì—¬ì;
 proc freq data=aa.data;
 table BS3_1 * group/ chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥5, Æò»ıÈí¿¬ ¿©ºÎ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ5, í‰ìƒí¡ì—° ì—¬ë¶€,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, Æò±Õ ½ºÆ®·¹½º ÀÎÁöÁ¤µµ, ³²ÀÚ;
+ * í‘œ6, í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ì •ë„, ë‚¨ì;
 proc freq data=aa.data;
 table bp1 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, Æò±Õ ½ºÆ®·¹½º ÀÎÁöÁ¤µµ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ì •ë„,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, Æò±Õ ½ºÆ®·¹½º ÀÎÁöÁ¤µµ, ¿©ÀÚ;
+ * í‘œ6, í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ì •ë„, ì—¬ì;
 proc freq data=aa.data;
 table bp1 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, Æò±Õ ½ºÆ®·¹½º ÀÎÁöÁ¤µµ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ì •ë„,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 2ÁÖÀÌ»ó ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ, ³²ÀÚ;
+ * í‘œ6, 2ì£¼ì´ìƒ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€, ë‚¨ì;
 proc freq data=aa.data;
 table bp5 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, 2ÁÖÀÌ»ó ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 2ì£¼ì´ìƒ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 2ÁÖÀÌ»ó ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ, ¿©ÀÚ;
+ * í‘œ6, 2ì£¼ì´ìƒ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€, ì—¬ì;
 proc freq data=aa.data;
 table bp5 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, 2ÁÖÀÌ»ó ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 2ì£¼ì´ìƒ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ Á¤½Å¹®Á¦ »ó´ã, ³²ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´, ë‚¨ì;
 proc freq data=aa.data;
 table bp7 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, 1³â°£ Á¤½Å¹®Á¦ »ó´ã,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ Á¤½Å¹®Á¦ »ó´ã, ¿©ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´, ì—¬ì;
 proc freq data=aa.data;
 table bp7 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, 1³â°£ Á¤½Å¹®Á¦ »ó´ã,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ, ³²ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€, ë‚¨ì;
 proc freq data=aa.data;
 table bp6_10 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, 1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ, ¿©ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€, ì—¬ì;
 proc freq data=aa.data;
 table bp6_10 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, 1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ, ³²ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€, ë‚¨ì;
 proc freq data=aa.data;
 table bp6_2 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, 1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ, ³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€, ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ, ¿©ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€, ì—¬ì;
 proc freq data=aa.data;
 table bp6_2 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, 1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ, ¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€, ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ ÀÚ»ì ½Ãµµ ¿©ºÎ, ³²ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ìì‚´ ì‹œë„ ì—¬ë¶€, ë‚¨ì;
 proc freq data=aa.data;
 table bp6_31 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, 1³â°£ ÀÚ»ì ½Ãµµ ¿©ºÎ,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ìì‚´ ì‹œë„ ì—¬ë¶€,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, 1³â°£ ÀÚ»ì ½Ãµµ ¿©ºÎ, ¿©ÀÚ;
+ * í‘œ6, 1ë…„ê°„ ìì‚´ ì‹œë„ ì—¬ë¶€, ì—¬ì;
 proc freq data=aa.data;
 table bp6_31 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, 1³â°£ ÀÚ»ì ½Ãµµ ¿©ºÎ,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, 1ë…„ê°„ ìì‚´ ì‹œë„ ì—¬ë¶€,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, ½ºÆ®·¹½º ÀÎÁöÀ², ³²ÀÚ;
+ * í‘œ6, ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨, ë‚¨ì;
 proc freq data=aa.data;
 table mh_stress * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, ½ºÆ®·¹½º ÀÎÁöÀ²,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, ½ºÆ®·¹½º ÀÎÁöÀ², ¿©ÀÚ;
+ * í‘œ6, ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨, ì—¬ì;
 proc freq data=aa.data;
 table mh_stress * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, ½ºÆ®·¹½º ÀÎÁöÀ²,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, ¿ì¿ïÁõ»ó °æÇè·ü, ³²ÀÚ;
+ * í‘œ6, ìš°ìš¸ì¦ìƒ ê²½í—˜ë¥ , ë‚¨ì;
 proc freq data=aa.data;
 table mh_melan * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, ¿ì¿ïÁõ»ó °æÇè·ü, ³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, ìš°ìš¸ì¦ìƒ ê²½í—˜ë¥ , ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, ¿ì¿ïÁõ»ó °æÇè·ü, ¿©ÀÚ;
+ * í‘œ6, ìš°ìš¸ì¦ìƒ ê²½í—˜ë¥ , ì—¬ì;
 proc freq data=aa.data;
 table mh_melan * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, ¿ì¿ïÁõ»ó °æÇè·ü, ¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, ìš°ìš¸ì¦ìƒ ê²½í—˜ë¥ , ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, ÀÚ»ì »ı°¢·ü, ³²ÀÚ;
+ * í‘œ6, ìì‚´ ìƒê°ë¥ , ë‚¨ì;
 proc freq data=aa.data;
 table mh_suicide * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥6, ÀÚ»ì »ı°¢·ü, ³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, ìì‚´ ìƒê°ë¥ , ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥6, ÀÚ»ì »ı°¢·ü, ¿©ÀÚ;
+ * í‘œ6, ìì‚´ ìƒê°ë¥ , ì—¬ì;
 proc freq data=aa.data;
 table mh_suicide * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥6, ÀÚ»ì »ı°¢·ü, ¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ6, ìì‚´ ìƒê°ë¥ , ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ÀÏÀ» ÇÏ´Â °Í¿¡ ´ëÇÑ Èï¹Ì³ª Àç¹Ì°¡ °ÅÀÇ ¾øÀ½, ³²ÀÚ;
+ * í‘œ7, ì¼ì„ í•˜ëŠ” ê²ƒì— ëŒ€í•œ í¥ë¯¸ë‚˜ ì¬ë¯¸ê°€ ê±°ì˜ ì—†ìŒ, ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_1 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥7, ÀÏÀ» ÇÏ´Â °Í¿¡ ´ëÇÑ Èï¹Ì³ª Àç¹Ì°¡ °ÅÀÇ ¾øÀ½,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ7, ì¼ì„ í•˜ëŠ” ê²ƒì— ëŒ€í•œ í¥ë¯¸ë‚˜ ì¬ë¯¸ê°€ ê±°ì˜ ì—†ìŒ,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ÀÏÀ» ÇÏ´Â °Í¿¡ ´ëÇÑ Èï¹Ì³ª Àç¹Ì°¡ °ÅÀÇ ¾øÀ½, ¿©ÀÚ;
+ * í‘œ7, ì¼ì„ í•˜ëŠ” ê²ƒì— ëŒ€í•œ í¥ë¯¸ë‚˜ ì¬ë¯¸ê°€ ê±°ì˜ ì—†ìŒ, ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_1 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥7, ÀÏÀ» ÇÏ´Â °Í¿¡ ´ëÇÑ Èï¹Ì³ª Àç¹Ì°¡ °ÅÀÇ ¾øÀ½,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ7, ì¼ì„ í•˜ëŠ” ê²ƒì— ëŒ€í•œ í¥ë¯¸ë‚˜ ì¬ë¯¸ê°€ ê±°ì˜ ì—†ìŒ,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, °¡¶ó¾ÉÀº ´À³¦, ¿ì¿ï°¨ È¤Àº Àı¸Á°¨, ³²ÀÚ;
+ * í‘œ7, ê°€ë¼ì•‰ì€ ëŠë‚Œ, ìš°ìš¸ê° í˜¹ì€ ì ˆë§ê°, ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_2 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Ç¥7, °¡¶ó¾ÉÀº ´À³¦, ¿ì¿ï°¨ È¤Àº Àı¸Á°¨,³²ÀÚ, group &group_a and group &group_b";
+title "í‘œ7, ê°€ë¼ì•‰ì€ ëŠë‚Œ, ìš°ìš¸ê° í˜¹ì€ ì ˆë§ê°,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, °¡¶ó¾ÉÀº ´À³¦, ¿ì¿ï°¨ È¤Àº Àı¸Á°¨, ¿©ÀÚ;
+ * í‘œ7, ê°€ë¼ì•‰ì€ ëŠë‚Œ, ìš°ìš¸ê° í˜¹ì€ ì ˆë§ê°, ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_2 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Ç¥7, °¡¶ó¾ÉÀº ´À³¦, ¿ì¿ï°¨ È¤Àº Àı¸Á°¨,¿©ÀÚ, group &group_a and group &group_b";
+title "í‘œ7, ê°€ë¼ì•‰ì€ ëŠë‚Œ, ìš°ìš¸ê° í˜¹ì€ ì ˆë§ê°,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, Àáµé±â ¾î·Æ°Å³ª ÀÚ²Ù ±ú¾î³², È¤Àº ³Ê¹« ¸¹ÀÌ Àá, ³²ÀÚ;
+ * í‘œ7, ì ë“¤ê¸° ì–´ë µê±°ë‚˜ ìê¾¸ ê¹¨ì–´ë‚¨, í˜¹ì€ ë„ˆë¬´ ë§ì´ ì , ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_3 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "Àáµé±â ¾î·Æ°Å³ª ÀÚ²Ù ±ú¾î³², È¤Àº ³Ê¹« ¸¹ÀÌ Àá,³²ÀÚ, group &group_a and group &group_b";
+title "ì ë“¤ê¸° ì–´ë µê±°ë‚˜ ìê¾¸ ê¹¨ì–´ë‚¨, í˜¹ì€ ë„ˆë¬´ ë§ì´ ì ,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, Àáµé±â ¾î·Æ°Å³ª ÀÚ²Ù ±ú¾î³², È¤Àº ³Ê¹« ¸¹ÀÌ Àá, ¿©ÀÚ;
+ * í‘œ7, ì ë“¤ê¸° ì–´ë µê±°ë‚˜ ìê¾¸ ê¹¨ì–´ë‚¨, í˜¹ì€ ë„ˆë¬´ ë§ì´ ì , ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_3 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "Àáµé±â ¾î·Æ°Å³ª ÀÚ²Ù ±ú¾î³², È¤Àº ³Ê¹« ¸¹ÀÌ Àá,¿©ÀÚ, group &group_a and group &group_b";
+title "ì ë“¤ê¸° ì–´ë µê±°ë‚˜ ìê¾¸ ê¹¨ì–´ë‚¨, í˜¹ì€ ë„ˆë¬´ ë§ì´ ì ,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ÇÇ°ï°¨, ±â·ÂÀÌ ÀúÇÏµÊ, ³²ÀÚ;
+ * í‘œ7, í”¼ê³¤ê°, ê¸°ë ¥ì´ ì €í•˜ë¨, ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_4 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "ÇÇ°ï°¨, ±â·ÂÀÌ ÀúÇÏµÊ,³²ÀÚ, group &group_a and group &group_b";
+title "í”¼ê³¤ê°, ê¸°ë ¥ì´ ì €í•˜ë¨,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ÇÇ°ï°¨, ±â·ÂÀÌ ÀúÇÏµÊ, ¿©ÀÚ;
+ * í‘œ7, í”¼ê³¤ê°, ê¸°ë ¥ì´ ì €í•˜ë¨, ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_4 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "ÇÇ°ï°¨, ±â·ÂÀÌ ÀúÇÏµÊ,¿©ÀÚ, group &group_a and group &group_b";
+title "í”¼ê³¤ê°, ê¸°ë ¥ì´ ì €í•˜ë¨,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ½Ä¿å ÀúÇÏ È¤Àº °ú½Ä, ³²ÀÚ;
+ * í‘œ7, ì‹ìš• ì €í•˜ í˜¹ì€ ê³¼ì‹, ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_5 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "½Ä¿å ÀúÇÏ È¤Àº °ú½Ä,³²ÀÚ, group &group_a and group &group_b";
+title "ì‹ìš• ì €í•˜ í˜¹ì€ ê³¼ì‹,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ½Ä¿å ÀúÇÏ È¤Àº °ú½Ä, ¿©ÀÚ;
+ * í‘œ7, ì‹ìš• ì €í•˜ í˜¹ì€ ê³¼ì‹, ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_5 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "½Ä¿å ÀúÇÏ È¤Àº °ú½Ä,¿©ÀÚ, group &group_a and group &group_b";
+title "ì‹ìš• ì €í•˜ í˜¹ì€ ê³¼ì‹,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ³» ÀÚ½ÅÀÌ ³ª»Û »ç¶÷ÀÌ¶ó´Â ´À³¦....., ³²ÀÚ;
+ * í‘œ7, ë‚´ ìì‹ ì´ ë‚˜ìœ ì‚¬ëŒì´ë¼ëŠ” ëŠë‚Œ....., ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_6 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "³» ÀÚ½ÅÀÌ ³ª»Û »ç¶÷ÀÌ¶ó´Â ´À³¦.....,³²ÀÚ, group &group_a and group &group_b";
+title "ë‚´ ìì‹ ì´ ë‚˜ìœ ì‚¬ëŒì´ë¼ëŠ” ëŠë‚Œ.....,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ³» ÀÚ½ÅÀÌ ³ª»Û »ç¶÷ÀÌ¶ó´Â ´À³¦....., ¿©ÀÚ;
+ * í‘œ7, ë‚´ ìì‹ ì´ ë‚˜ìœ ì‚¬ëŒì´ë¼ëŠ” ëŠë‚Œ....., ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_6 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "³» ÀÚ½ÅÀÌ ³ª»Û »ç¶÷ÀÌ¶ó´Â ´À³¦.....,¿©ÀÚ, group &group_a and group &group_b";
+title "ë‚´ ìì‹ ì´ ë‚˜ìœ ì‚¬ëŒì´ë¼ëŠ” ëŠë‚Œ.....,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ½Å¹®À» ÀĞ°Å³ª TV¸¦ º¼ ¶§ ....., ³²ÀÚ;
+ * í‘œ7, ì‹ ë¬¸ì„ ì½ê±°ë‚˜ TVë¥¼ ë³¼ ë•Œ ....., ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_7 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "½Å¹®À» ÀĞ°Å³ª TV¸¦ º¼ ¶§ .....,³²ÀÚ, group &group_a and group &group_b";
+title "ì‹ ë¬¸ì„ ì½ê±°ë‚˜ TVë¥¼ ë³¼ ë•Œ .....,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ½Å¹®À» ÀĞ°Å³ª TV¸¦ º¼ ¶§ ....., ¿©ÀÚ;
+ * í‘œ7, ì‹ ë¬¸ì„ ì½ê±°ë‚˜ TVë¥¼ ë³¼ ë•Œ ....., ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_7 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "½Å¹®À» ÀĞ°Å³ª TV¸¦ º¼ ¶§ .....,¿©ÀÚ, group &group_a and group &group_b";
+title "ì‹ ë¬¸ì„ ì½ê±°ë‚˜ TVë¥¼ ë³¼ ë•Œ .....,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ³²µéÀÌ ¾Ë¾ÆÃ§ Á¤µµ·Î °Åµ¿ÀÌ³ª ¸»ÀÌ ´À¸²....., ³²ÀÚ;
+ * í‘œ7, ë‚¨ë“¤ì´ ì•Œì•„ì±Œ ì •ë„ë¡œ ê±°ë™ì´ë‚˜ ë§ì´ ëŠë¦¼....., ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_8 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "³²µéÀÌ ¾Ë¾ÆÃ§ Á¤µµ·Î °Åµ¿ÀÌ³ª ¸»ÀÌ ´À¸².....,³²ÀÚ, group &group_a and group &group_b";
+title "ë‚¨ë“¤ì´ ì•Œì•„ì±Œ ì •ë„ë¡œ ê±°ë™ì´ë‚˜ ë§ì´ ëŠë¦¼.....,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ³²µéÀÌ ¾Ë¾ÆÃ§ Á¤µµ·Î °Åµ¿ÀÌ³ª ¸»ÀÌ ´À¸²....., ¿©ÀÚ;
+ * í‘œ7, ë‚¨ë“¤ì´ ì•Œì•„ì±Œ ì •ë„ë¡œ ê±°ë™ì´ë‚˜ ë§ì´ ëŠë¦¼....., ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_8 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "³²µéÀÌ ¾Ë¾ÆÃ§ Á¤µµ·Î °Åµ¿ÀÌ³ª ¸»ÀÌ ´À¸².....,¿©ÀÚ, group &group_a and group &group_b";
+title "ë‚¨ë“¤ì´ ì•Œì•„ì±Œ ì •ë„ë¡œ ê±°ë™ì´ë‚˜ ë§ì´ ëŠë¦¼.....,ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ³ª´Â Â÷¶ó¸® Á×´Â °ÍÀÌ ³´°Ú´Ù´Â........, ³²ÀÚ;
+ * í‘œ7, ë‚˜ëŠ” ì°¨ë¼ë¦¬ ì£½ëŠ” ê²ƒì´ ë‚«ê² ë‹¤ëŠ”........, ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_9 * group / chisq exact;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "³ª´Â Â÷¶ó¸® Á×´Â °ÍÀÌ ³´°Ú´Ù´Â........, ³²ÀÚ, group &group_a and group &group_b";
+title "ë‚˜ëŠ” ì°¨ë¼ë¦¬ ì£½ëŠ” ê²ƒì´ ë‚«ê² ë‹¤ëŠ”........, ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ³ª´Â Â÷¶ó¸® Á×´Â °ÍÀÌ ³´°Ú´Ù´Â........, ¿©ÀÚ;
+ * í‘œ7, ë‚˜ëŠ” ì°¨ë¼ë¦¬ ì£½ëŠ” ê²ƒì´ ë‚«ê² ë‹¤ëŠ”........, ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_9 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "³ª´Â Â÷¶ó¸® Á×´Â °ÍÀÌ ³´°Ú´Ù´Â........, ¿©ÀÚ, group &group_a and group &group_b";
+title "ë‚˜ëŠ” ì°¨ë¼ë¦¬ ì£½ëŠ” ê²ƒì´ ë‚«ê² ë‹¤ëŠ”........, ì—¬ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ÀÌ·¯ÇÑ ¹®Á¦ ¶§¹®¿¡ ¹æ¹®, ÀüÈ­, ÀÎÅÍ³İÀ» ÅëÇØ......., ³²ÀÚ;
+ * í‘œ7, ì´ëŸ¬í•œ ë¬¸ì œ ë•Œë¬¸ì— ë°©ë¬¸, ì „í™”, ì¸í„°ë„·ì„ í†µí•´......., ë‚¨ì;
 proc freq data=aa.data;
 table bp_phq_10 * group / chisq;
 where (group=&group_a and sex=1) or (group=&group_b and sex=1);
-title "ÀÌ·¯ÇÑ ¹®Á¦ ¶§¹®¿¡ ¹æ¹®, ÀüÈ­, ÀÎÅÍ³İÀ» ÅëÇØ.......,³²ÀÚ, group &group_a and group &group_b";
+title "ì´ëŸ¬í•œ ë¬¸ì œ ë•Œë¬¸ì— ë°©ë¬¸, ì „í™”, ì¸í„°ë„·ì„ í†µí•´.......,ë‚¨ì, group &group_a and group &group_b";
 run;
 
- * Ç¥7, ÀÌ·¯ÇÑ ¹®Á¦ ¶§¹®¿¡ ¹æ¹®, ÀüÈ­, ÀÎÅÍ³İÀ» ÅëÇØ......., ¿©ÀÚ;
+ * í‘œ7, ì´ëŸ¬í•œ ë¬¸ì œ ë•Œë¬¸ì— ë°©ë¬¸, ì „í™”, ì¸í„°ë„·ì„ í†µí•´......., ì—¬ì;
 proc freq data=aa.data;
 table bp_phq_10 * group / chisq;
 where (group=&group_a and sex=2) or (group=&group_b and sex=2);
-title "ÀÌ·¯ÇÑ ¹®Á¦ ¶§¹®¿¡ ¹æ¹®, ÀüÈ­, ÀÎÅÍ³İÀ» ÅëÇØ.......,¿©ÀÚ, group &group_a and group &group_b";
+title "ì´ëŸ¬í•œ ë¬¸ì œ ë•Œë¬¸ì— ë°©ë¬¸, ì „í™”, ì¸í„°ë„·ì„ í†µí•´.......,ì—¬ì, group &group_a and group &group_b";
 run;
 %mend;
 %chisq_test(1,2);
 
- * Ç¥8 ~ Ç¥10;
+ * í‘œ8 ~ í‘œ10;
 %chisq_test(1,3);
 
- * Ç¥11 ~ Ç¥13;
+ * í‘œ11 ~ í‘œ13;
 %chisq_test(4,5);
 
- * Ç¥14 ~ Ç¥16;
+ * í‘œ14 ~ í‘œ16;
 %chisq_test(4,6);
 
- * Ç¥17 ~ Ç¥19;
+ * í‘œ17 ~ í‘œ19;
 %chisq_test(7,8);
 
-* Ç¥20 ~ Ç¥22;
+* í‘œ20 ~ í‘œ22;
 %chisq_test(7,9);
 
 
@@ -572,173 +572,173 @@ run;
 	
 /*proc logistic data=aa.data;*/
 /*class bp1 bp5 bp7 bp6_10 bp6_2 bp6_31 mh_stress;*/
-/*model group = bp8 bp1 bp5 bp7 bp6_10 bp6_2 bp6_31 mh_stress bd1_11 bs3_1;     * bd1_11 = À½ÁÖ // bs3_1 = Èí¿¬;*/
+/*model group = bp8 bp1 bp5 bp7 bp6_10 bp6_2 bp6_31 mh_stress bd1_11 bs3_1;     * bd1_11 = ìŒì£¼ // bs3_1 = í¡ì—°;*/
 /*where (group=1 and sex=1) or (group=2 and sex=1);*/
-/*run;   *group 1 = 1, group 2=0À¸·Î ÄÚµù;*/
+/*run;   *group 1 = 1, group 2=0ìœ¼ë¡œ ì½”ë”©;*/
 
 
- /***Ç¥23~Ç¥28ÀÇ Model1 ¸ÅÅ©·Î***/
+ /***í‘œ23~í‘œ28ì˜ Model1 ë§¤í¬ë¡œ***/
 %macro logistic_model1(group_a,group_b,sex);
-   * ÇÏ·ç Æò±Õ ¼ö¸é½Ã°£;
+   * í•˜ë£¨ í‰ê·  ìˆ˜ë©´ì‹œê°„;
 proc logistic data=aa.data;
 model group = bp8 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "ÇÏ·ç Æò±Õ ¼ö¸é½Ã°£ group &group_a, &group_b, ¼ºº°=&sex";
+title "í•˜ë£¨ í‰ê·  ìˆ˜ë©´ì‹œê°„ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * Æò±Õ ½ºÆ®·¹½º ÀÎÁö Á¤µµ;
+   * í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ ì •ë„;
 proc logistic data=aa.data;
 class bp1 / param=ref;
 model group = bp1 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "Æò±Õ ½ºÆ®·¹½º ÀÎÁö Á¤µµ group &group_a, &group_b, ¼ºº°=&sex";
+title "í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ ì •ë„ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 2ÁÖÀÌ»ó ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ;
+   * 2ì£¼ì´ìƒ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp5 / param=ref;
 model group = bp5 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "2ÁÖ ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "2ì£¼ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ Á¤½Å¹®Á¦ »ó´ã;
+   * 1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´;
 proc logistic data=aa.data;
 class bp7 / param=ref;
 model group = bp7 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ Á¤½Å¹®Á¦ »ó´ã group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ;
+   * 1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp6_10 / param=ref;
 model group = bp6_10 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ;
+   * 1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp6_2 / param=ref;
 model group = bp6_2 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ ÀÚ»ì ½Ãµµ ¿©ºÎ;
+   * 1ë…„ê°„ ìì‚´ ì‹œë„ ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp6_31 / param=ref;
 model group = bp6_31 bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * ½ºÆ®·¹½º ÀÎÁöÀ²;
+   * ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨;
 proc logistic data=aa.data;
 class mh_stress / param=ref;
 model group = mh_stress bd1_11 bs3_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "½ºÆ®·¹½º ÀÎÁöÀ² group &group_a, &group_b, ¼ºº°=&sex";
+title "ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
  /*********************************/
 %mend;
 
 
- /***Ç¥23~Ç¥28ÀÇ Model2 ¸ÅÅ©·Î***/
+ /***í‘œ23~í‘œ28ì˜ Model2 ë§¤í¬ë¡œ***/
 %macro logistic_model2(group_a,group_b,sex);
-   * ÇÏ·ç Æò±Õ ¼ö¸é½Ã°£;
+   * í•˜ë£¨ í‰ê·  ìˆ˜ë©´ì‹œê°„;
 proc logistic data=aa.data;
 model group = bp8 bd1_11 bs3_1 LQ_3EQL d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "ÇÏ·ç Æò±Õ ¼ö¸é½Ã°£ group &group_a, &group_b, ¼ºº°=&sex";
+title "í•˜ë£¨ í‰ê·  ìˆ˜ë©´ì‹œê°„ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * Æò±Õ ½ºÆ®·¹½º ÀÎÁö Á¤µµ;
+   * í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ ì •ë„;
 proc logistic data=aa.data;
 class bp1 / param=ref;
 model group = bp1 bd1_11 bs3_1 LQ_3EQL bp8 d_1_1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "Æò±Õ ½ºÆ®·¹½º ÀÎÁö Á¤µµ group &group_a, &group_b, ¼ºº°=&sex";
+title "í‰ê·  ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ ì •ë„ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 2ÁÖÀÌ»ó ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ;
+   * 2ì£¼ì´ìƒ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp5 / param=ref;
 model group = bp5 bd1_11 bs3_1 LQ_3EQL bp8 d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "2ÁÖ ¿¬¼Ó ¿ì¿ï°¨ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "2ì£¼ ì—°ì† ìš°ìš¸ê° ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ Á¤½Å¹®Á¦ »ó´ã;
+   * 1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´;
 proc logistic data=aa.data;
 class bp7 / param=ref;
 model group = bp7 bd1_11 bs3_1 LQ_3EQL bp8 d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ Á¤½Å¹®Á¦ »ó´ã group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ì •ì‹ ë¬¸ì œ ìƒë‹´ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ;
+   * 1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp6_10 / param=ref;
 model group = bp6_10 bd1_11 bs3_1 LQ_3EQL bp8 d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ ÀÚ»ì »ı°¢ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ìì‚´ ìƒê° ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ;
+   * 1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp6_2 / param=ref;
 model group = bp6_2 bd1_11 bs3_1 LQ_3EQL bp8 d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * 1³â°£ ÀÚ»ì ½Ãµµ ¿©ºÎ;
+   * 1ë…„ê°„ ìì‚´ ì‹œë„ ì—¬ë¶€;
 proc logistic data=aa.data;
 class bp6_31 / param=ref;
 model group = bp6_31 bd1_11 bs3_1 LQ_3EQL bp8 d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "1³â°£ ÀÚ»ì °èÈ¹ ¿©ºÎ group &group_a, &group_b, ¼ºº°=&sex";
+title "1ë…„ê°„ ìì‚´ ê³„íš ì—¬ë¶€ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
 
-   * ½ºÆ®·¹½º ÀÎÁöÀ²;
+   * ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨;
 proc logistic data=aa.data;
 class mh_stress / param=ref;
 model group = mh_stress bd1_11 bs3_1 LQ_3EQL bp8 d_1_1 bp1;
 where (group=&group_a and sex=&sex) or (group=&group_b and sex=&sex);
-title "½ºÆ®·¹½º ÀÎÁöÀ² group &group_a, &group_b, ¼ºº°=&sex";
+title "ìŠ¤íŠ¸ë ˆìŠ¤ ì¸ì§€ìœ¨ group &group_a, &group_b, ì„±ë³„=&sex";
 run;
  /*********************************/
 %mend;
 
 
-* Ç¥23 model1, ³²ÀÚ, group 1= 1, group 2 = 0;
+* í‘œ23 model1, ë‚¨ì, group 1= 1, group 2 = 0;
 %logistic_model1(1,2,1)
 
-* Ç¥23 model1, ¿©ÀÚ, group 1= 1, group 2 = 0;
+* í‘œ23 model1, ì—¬ì, group 1= 1, group 2 = 0;
 %logistic_model1(1,2,2)
 
-* Ç¥23 model2, ³²ÀÚ, group 1= 1, group 2 = 0;
+* í‘œ23 model2, ë‚¨ì, group 1= 1, group 2 = 0;
 %logistic_model2(1,2,1)
 
-* Ç¥23 model2, ¿©ÀÚ, group 1= 1, group 2 = 0;
+* í‘œ23 model2, ì—¬ì, group 1= 1, group 2 = 0;
 %logistic_model2(1,2,2)
 
 
 
 
 
-* Ç¥24 model1, ³²ÀÚ, group 1= 1, group 3 = 0;
+* í‘œ24 model1, ë‚¨ì, group 1= 1, group 3 = 0;
 %logistic_model1(1,3,1)
 
-* Ç¥24 model1, ¿©ÀÚ, group 1= 1, group 3 = 0;
+* í‘œ24 model1, ì—¬ì, group 1= 1, group 3 = 0;
 %logistic_model1(1,3,2)
 
-* Ç¥24 model2, ³²ÀÚ, group 1= 1, group 3 = 0;
+* í‘œ24 model2, ë‚¨ì, group 1= 1, group 3 = 0;
 %logistic_model2(1,3,1)
 
-* Ç¥24 model2, ¿©ÀÚ, group 1= 1, group 3 = 0;
+* í‘œ24 model2, ì—¬ì, group 1= 1, group 3 = 0;
 %logistic_model2(1,3,2)
 
 
@@ -746,16 +746,16 @@ run;
 
 
 
-* Ç¥25 model1, ³²ÀÚ, group 4= 1, group 5 = 0;
+* í‘œ25 model1, ë‚¨ì, group 4= 1, group 5 = 0;
 %logistic_model1(4,5,1)
 
-* Ç¥25 model1, ¿©ÀÚ, group 4= 1, group 5 = 0;
+* í‘œ25 model1, ì—¬ì, group 4= 1, group 5 = 0;
 %logistic_model1(4,5,2)
 
-* Ç¥25 model2, ³²ÀÚ, group 4= 1, group 5 = 0;
+* í‘œ25 model2, ë‚¨ì, group 4= 1, group 5 = 0;
 %logistic_model2(4,5,1)
 
-* Ç¥25 model2, ¿©ÀÚ, group 4= 1, group 5 = 0;
+* í‘œ25 model2, ì—¬ì, group 4= 1, group 5 = 0;
 %logistic_model2(4,5,2)
 
 
@@ -763,46 +763,46 @@ run;
 
 
 
-* Ç¥26 model1, ³²ÀÚ, group 4= 1, group 6 = 0;
+* í‘œ26 model1, ë‚¨ì, group 4= 1, group 6 = 0;
 %logistic_model1(4,6,1)
 
-* Ç¥26 model1, ¿©ÀÚ, group 4= 1, group 6 = 0;
+* í‘œ26 model1, ì—¬ì, group 4= 1, group 6 = 0;
 %logistic_model1(4,6,2)
 
-* Ç¥26 model2, ³²ÀÚ, group 4= 1, group 6 = 0;
+* í‘œ26 model2, ë‚¨ì, group 4= 1, group 6 = 0;
 %logistic_model2(4,6,1)
 
-* Ç¥26 model2, ¿©ÀÚ, group 4= 1, group 6 = 0;
+* í‘œ26 model2, ì—¬ì, group 4= 1, group 6 = 0;
 %logistic_model2(4,6,2)
 
 
 
 
 
-* Ç¥27 model1, ³²ÀÚ, group 7= 1, group 8 = 0;
+* í‘œ27 model1, ë‚¨ì, group 7= 1, group 8 = 0;
 %logistic_model1(7,8,1)
 
-* Ç¥27 model1, ¿©ÀÚ, group 7= 1, group 8 = 0;
+* í‘œ27 model1, ì—¬ì, group 7= 1, group 8 = 0;
 %logistic_model1(7,8,2)
 
-* Ç¥27 model2, ³²ÀÚ, group 7= 1, group 8 = 0;
+* í‘œ27 model2, ë‚¨ì, group 7= 1, group 8 = 0;
 %logistic_model2(7,8,1)
 
-* Ç¥27 model2, ¿©ÀÚ, group 7= 1, group 8 = 0;
+* í‘œ27 model2, ì—¬ì, group 7= 1, group 8 = 0;
 %logistic_model2(7,8,2)
 
 
 
 
 
-* Ç¥28 model1, ³²ÀÚ, group 7= 1, group 9 = 0;
+* í‘œ28 model1, ë‚¨ì, group 7= 1, group 9 = 0;
 %logistic_model1(7,9,1)
 
-* Ç¥28 model1, ¿©ÀÚ, group 7= 1, group 9 = 0;
+* í‘œ28 model1, ì—¬ì, group 7= 1, group 9 = 0;
 %logistic_model1(7,9,2)
 
-* Ç¥28 model2, ³²ÀÚ, group 7= 1, group 9 = 0;
+* í‘œ28 model2, ë‚¨ì, group 7= 1, group 9 = 0;
 %logistic_model2(7,9,1)
 
-* Ç¥28 model2, ¿©ÀÚ, group 7= 1, group 9 = 0;
+* í‘œ28 model2, ì—¬ì, group 7= 1, group 9 = 0;
 %logistic_model2(7,9,2)
